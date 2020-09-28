@@ -30,6 +30,7 @@ app.get(`/api/users`, userCtrl.getAllUsers);
 
 //Check Endpoints
 app.post('/api/check', checkCtrl.addCleaningCheck);
+app.post('/api/check/:check_date_id', checkCtrl.beginCleaningCheck);
 
 
 massive({

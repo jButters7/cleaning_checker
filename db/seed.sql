@@ -18,7 +18,8 @@ CREATE TABLE apartments(
 
 CREATE TABLE apartment_checks(
    apartment_check_id SERIAL PRIMARY KEY,
-   apartment_id INT REFERENCES apartments(apartment_id) NOT NULL
+   apartment_id INT REFERENCES apartments(apartment_id) NOT NULL,
+   check_date_id INT REFERENCES check_dates(check_date_id) NOT NULL
  );
 
 CREATE TABLE tenants(

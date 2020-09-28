@@ -40,16 +40,13 @@ module.exports = {
   login: async (req, res) => {
     const db = req.app.get('db');
     const { email, password } = req.body;
-    console.log('1')
 
     const [existingUser] = await db.check_email([email]);
-    console.log('1')
 
     if (!existingUser) {
       return res.status(404).send('Email not found. User must first register.');
     }
 
-    console.log('1')
     const isAuthenticated = bcrypt.compareSync(password, existingUser.password_hash);
 
     if (!isAuthenticated) {

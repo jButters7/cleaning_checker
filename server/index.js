@@ -3,7 +3,9 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const massive = require('massive');
-const authCtrl = require('./authController')
+const authCtrl = require('./authController');
+const userCtrl = require('./userController');
+const checkCtrl = require('./checkController');
 
 const app = express();
 
@@ -23,7 +25,11 @@ app.use(session({
 app.post(`/auth/register`, authCtrl.register);
 app.post('/auth/login', authCtrl.login);
 
-//CRUD endpoints
+//User endpoints
+app.get(`/api/users`, userCtrl.getAllUsers);
+
+//Check Endpoints
+app.post('/api/check', checkCtrl.addCleaningCheck);
 
 
 massive({

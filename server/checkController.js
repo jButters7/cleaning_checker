@@ -1,23 +1,4 @@
 module.exports = {
-  // addCleaningCheck: async (req, res) => {
-  //   const db = req.app.get('db');
-  //   const { check_month, check_date, recheck_date } = req.body;
-
-  //   const [checkMonthId] = await db.add_check_month(check_month);
-
-  //   const addedDate = await db.add_check_dates(checkMonthId.check_month_id, check_date, recheck_date);
-
-  //   res.status(200).send(addedDate);
-  // },
-
-  // addCheckMonth: async (req, res) => {
-  //   const db = req.app.get('db');
-  //   const { check_month } = req.body;
-
-  //   const checkMonthId = await db.add_check_month(check_month);
-
-  //   res.status(200).send(checkMonthId);
-  // },
 
   addCheckMonths: async (req, res) => {
     const db = req.app.get('db');
@@ -28,9 +9,7 @@ module.exports = {
       let month = i.toString().padStart(2, '0');
       let [addedMonthInfo] = await db.add_check_months(year, month)
       checkMonthInfo.push(addedMonthInfo);
-      console.log('m', addedMonthInfo);
     }
-    console.log('c', checkMonthInfo);
     res.status(200).send(checkMonthInfo);
   },
 
@@ -46,8 +25,6 @@ module.exports = {
 
     const { check_month_id } = req.params;
     const { check_date } = req.body;
-    console.log(check_month_id, 'checkmonthid');
-    console.log(check_date, 'checkDate');
 
     const addedDate = await db.add_check_date(check_month_id, check_date);
 
@@ -61,7 +38,6 @@ module.exports = {
     // console.log(allCheckMonths)
 
     const allCheckDates = await db.get_all_check_dates()
-    console.log(allCheckDates)
 
     //Combine the months with their respected dates. 
     allCheckMonths.forEach(element => {
@@ -80,8 +56,7 @@ module.exports = {
 
   beginCleaningCheck: async (req, res) => {
     const db = req.app.get('db');
-
-    const { check_date_id } = req.params;
+    const { check_date_id } = req.body;
 
     const allApartments = await db.get_all_apartments();
 
@@ -115,4 +90,23 @@ module.exports = {
     res.sendStatus(200);
 
   }
+  // addCleaningCheck: async (req, res) => {
+  //   const db = req.app.get('db');
+  //   const { check_month, check_date, recheck_date } = req.body;
+
+  //   const [checkMonthId] = await db.add_check_month(check_month);
+
+  //   const addedDate = await db.add_check_dates(checkMonthId.check_month_id, check_date, recheck_date);
+
+  //   res.status(200).send(addedDate);
+  // },
+
+  // addCheckMonth: async (req, res) => {
+  //   const db = req.app.get('db');
+  //   const { check_month } = req.body;
+
+  //   const checkMonthId = await db.add_check_month(check_month);
+
+  //   res.status(200).send(checkMonthId);
+  // },
 }

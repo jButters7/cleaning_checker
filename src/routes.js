@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import AdminDashboard from './Components/AdminDashboard';
-import Apartment from './Components/Apartment';
-import Archive from './Components/Archive';
-import CurrentCheck from './Components/CurrentCheck';
-import Dashboard from './Components/Dashboard';
-import Login from './Components/Login';
-import Register from './Components/Register';
-import TenantList from './Components/TenantList';
+import AdminDashboard from './Components/AdminDashboard/AdminDashboard';
+import Apartment from './Components/Apartment/Apartment';
+import Archive from './Components/ArchiveFolder/Archive';
+import CurrentCheck from './Components/CurrentCheck/CurrentCheck';
+import Dashboard from './Components/Dashboard/Dashboard';
+import Login from './Components/Login/Login';
+import Register from './Components/Register/Register';
+import TenantList from './Components/TenantList/TenantList';
 
 export default (
   <Switch>

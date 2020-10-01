@@ -7,9 +7,7 @@ function Tenant(props) {
       <div>
         Name
         <div className='name'>
-          {props.tenantInfo.first_name}
-
-          {props.tenantInfo.last_name}
+          {props.tenantInfo.first_name} {props.tenantInfo.last_name}
         </div>
       </div>
       <div>

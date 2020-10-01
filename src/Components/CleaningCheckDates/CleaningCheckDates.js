@@ -5,17 +5,23 @@ import moment from 'moment';
 function CleaningCheckDates(props) {
   const [specificCheckDateId, setSpecificCheckDateId] = useState({});
   const [currentCheckApartments, setCurrentCheckApartments] = useState([]);
+  const [monthStatus, setMonthStatus] = useState('');
   const [isCheckDateInputDisplayed, setIsCheckDateInputDisplayed] = useState(false);
   const [check_date, setAddCheckDate] = useState('');
 
   useEffect(() => {
     setSpecificCheckDateId(props.data.check_dates[0])
+    setMonthStatus(props.data.status)
   }, [])
 
   const beginCleaningCheck = () => {
     axios.post(`/api/check/`, specificCheckDateId).then(res => {
       setCurrentCheckApartments(res.data)
     }).catch(err => alert(err.message));
+  }
+
+  const continueCleaningCheck = () => {
+    console.log('continuing')
   }
 
   const alterAddDateDisplay = () => {
@@ -64,14 +70,17 @@ function CleaningCheckDates(props) {
           <div>
             <button onClick={() => {
               return saveCheckDate(props.data.check_month_id, props);
-            }
-            }>Save Date</button>
+            }}>Save Date</button>
             <button onClick={() => alterAddDateDisplay()}>Cancel</button>
           </div>
         }
 
-        <button onClick={() => beginCleaningCheck()}>Begin Cleaning Check</button>
-        <button>Archive</button>
+        {(monthStatus === 'INITIAL') ?
+          <button onClick={() => beginCleaningCheck()}>Begin Cleaning Check</button> :
+          (monthStatus === 'INPROGRESS') ?
+            <button button onClick={() => continueCleaningCheck()}>Continue Cleaning Check</button> :
+            <button>Archive</button>}
+
       </div>
     </div >
   )

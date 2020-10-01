@@ -56,7 +56,11 @@ module.exports = {
 
   beginCleaningCheck: async (req, res) => {
     const db = req.app.get('db');
-    const { check_date_id } = req.body;
+
+    console.log(req.body);
+    const { check_date_id, check_month_id } = req.body;
+
+    await db.alter_month_status_to_inprogress(check_month_id);
 
     const allApartments = await db.get_all_apartments();
 

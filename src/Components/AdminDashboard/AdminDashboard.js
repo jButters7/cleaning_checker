@@ -37,7 +37,6 @@ function AdminDashboard() {
         return (
           <div>
             < CleaningCheckDates key={element.check_month_id} data={element} reRenderFunction={reRender} />
-
           </div>
         )
       })}

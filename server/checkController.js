@@ -57,18 +57,12 @@ module.exports = {
   beginCleaningCheck: async (req, res) => {
     const db = req.app.get('db');
 
-    console.log(req.body);
-    const { check_date_id, check_month_id } = req.body;
+    console.log('body', req.body);
+    const { check_month_id } = req.body;
 
     await db.alter_month_status_to_inprogress(check_month_id);
 
     const allApartments = await db.get_all_apartments();
-
-    //Assigns each apartment id a cleaning check date id within the apartment_checks table
-    for (let i = 0; i < allApartments.length; i++) {
-      await db.assign_apartment_cleaning_date(allApartments[i].apartment_id, check_date_id);
-    }
-
     const allTenants = await db.get_all_tenants();
 
     //Creates a tenant report for every tenants currently within the app.
@@ -76,9 +70,9 @@ module.exports = {
       const currentTenantId = allTenants[i].tenant_id;
       //finds tenants apartment id using their tenant id
       const [apartmentId] = await db.get_tenants_apartment_id(currentTenantId);
-      const [apartmentCheckId] = await db.find_recent_apartment_check_id(apartmentId.apartment_id);
-      console.log(apartmentCheckId.max, currentTenantId);
-      await db.assign_to_tenant_report(apartmentCheckId.max, currentTenantId);
+
+      console.log(apartmentId)
+      await db.assign_to_tenant_report(check_month_id, apartmentId.apartment_id, currentTenantId);
     }
 
     res.status(200).send(allApartments);
@@ -93,6 +87,14 @@ module.exports = {
 
     res.sendStatus(200);
 
+  },
+
+  getAllApartments: async (req, res) => {
+    const db = req.app.get('db');
+
+    const allApartments = await db.get_all_apartments();
+
+    res.status(200).send(allApartments);
   }
   // addCleaningCheck: async (req, res) => {
   //   const db = req.app.get('db');

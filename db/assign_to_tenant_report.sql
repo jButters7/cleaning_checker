@@ -1,4 +1,4 @@
 INSERT INTO tenant_report
-(apartment_check_id, tenant_id, status)
+(check_month_id, apartment_id, tenant_id)
 VALUES
-($1,$2,'INITIAL');
+($1, $2, $3);

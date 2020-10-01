@@ -37,7 +37,8 @@ app.post('/api/check_date/:check_month_id', checkCtrl.addCheckDate);
 // app.post('/api/check', checkCtrl.addCleaningCheck);
 app.post('/api/check/', checkCtrl.beginCleaningCheck);
 app.put('/api/check/report/:tenant_report_id', checkCtrl.submitTenantCleaningCheck);
-
+app.get('/api/tenant_reports/:month_id/:apartment_id', checkCtrl.getTenantReports);
+app.get('/api/check/', checkCtrl.getAllApartments);
 
 massive({
   connectionString: CONNECTION_STRING,

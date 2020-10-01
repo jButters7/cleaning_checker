@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import { connect } from 'react-redux';
+import { setReduxMonthId } from '../../ducks/reducer';
+
 
 function CleaningCheckDates(props) {
   const [specificCheckDateId, setSpecificCheckDateId] = useState({});
-  const [currentCheckApartments, setCurrentCheckApartments] = useState([]);
   const [monthStatus, setMonthStatus] = useState('');
   const [isCheckDateInputDisplayed, setIsCheckDateInputDisplayed] = useState(false);
   const [check_date, setAddCheckDate] = useState('');
@@ -16,9 +18,12 @@ function CleaningCheckDates(props) {
 
   const beginCleaningCheck = () => {
     axios.post(`/api/check/`, specificCheckDateId).then(res => {
-      setCurrentCheckApartments(res.data)
+      console.log(props.data.check_month_id);
+      props.setReduxMonthId(props.data.check_month_id);
+
     }).catch(err => alert(err.message));
   }
+
 
   const continueCleaningCheck = () => {
     console.log('continuing')
@@ -86,4 +91,6 @@ function CleaningCheckDates(props) {
   )
 }
 
-export default CleaningCheckDates;
+const mapStateToProps = reduxState => reduxState;
+
+export default connect(mapStateToProps, { setReduxMonthId })(CleaningCheckDates);

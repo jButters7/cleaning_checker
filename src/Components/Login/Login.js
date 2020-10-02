@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { loginUser } from '../../ducks/reducer';
 
 function Login(props) {
 
@@ -8,7 +10,12 @@ function Login(props) {
 
   const login = () => {
     axios.post(`/auth/login`, { email, password }).then(res => {
-      console.log(res.data)
+      props.loginUser(res.data.user_id, res.data.first_name, res.data.last_name);
+      if (res.data.user_role === 'ADMIN') {
+        props.history.push('/admindashboard');
+      } else {
+        props.history.push('dashboard');
+      }
     })
       .catch(err => alert(err.message))
   }
@@ -23,4 +30,4 @@ function Login(props) {
   )
 }
 
-export default Login;
+export default connect(null, { loginUser })(Login);

@@ -3,7 +3,7 @@ import axios from 'axios';
 import CleaningCheckDates from '../CleaningCheckDates/CleaningCheckDates';
 
 
-function AdminDashboard() {
+function AdminDashboard(props) {
   const [newYear, setNewYear] = useState('');
   const [upcomingCheckDates, setUpcomingCheckDates] = useState([]);
   const [runRender, setRunRender] = useState(false);
@@ -14,6 +14,10 @@ function AdminDashboard() {
 
   const reRender = () => {
     setRunRender(!runRender)
+  }
+
+  const pushToCurrentCheck = () => {
+    props.history.push('/currentcheck');
   }
 
   const getAllMonths = () => {
@@ -36,7 +40,7 @@ function AdminDashboard() {
       {upcomingCheckDates.map(element => {
         return (
           <div>
-            < CleaningCheckDates key={element.check_month_id} data={element} reRenderFunction={reRender} />
+            < CleaningCheckDates key={element.check_month_id} data={element} reRenderFunction={reRender} pushToCurrentCheck={pushToCurrentCheck} />
           </div>
         )
       })}

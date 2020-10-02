@@ -78,13 +78,27 @@ module.exports = {
     res.status(200).send(allApartments);
   },
 
+  getTenantReports: async (req, res) => {
+    const db = req.app.get('db');
+    const { month_id, apartment_id } = req.params;
+
+    console.log('here', month_id, apartment_id)
+
+    const tenantReports = await db.get_tenant_reports_on_month_for_apartment(month_id, apartment_id);
+
+    res.status(200).send(tenantReports);
+  },
+
   submitTenantCleaningCheck: async (req, res) => {
     const db = req.app.get('db')
-    const { status, failed_info } = req.body;
+    const { checkStatus, failedInfo } = req.body;
     const { tenant_report_id } = req.params;
 
-    await db.update_tenant_report(tenant_report_id, status, failed_info)
+    console.log('checkStatus', checkStatus)
+    console.log('failedInfo', failedInfo)
+    console.log('tenantrid', tenant_report_id)
 
+    await db.update_tenant_report(tenant_report_id, checkStatus, failedInfo)
     res.sendStatus(200);
 
   },
@@ -95,7 +109,19 @@ module.exports = {
     const allApartments = await db.get_all_apartments();
 
     res.status(200).send(allApartments);
+  },
+
+  getTenantCleaningCheckHistory: async (req, res) => {
+    const db = req.app.get('db');
+    const { user_id } = req.params;
+    console.log('userid', user_id)
+
+    const TenantCleaningCheckHistory = await db.get_tenant_cleaning_check_history(user_id);
+
+    res.status(200).send(TenantCleaningCheckHistory);
   }
+
+
   // addCleaningCheck: async (req, res) => {
   //   const db = req.app.get('db');
   //   const { check_month, check_date, recheck_date } = req.body;

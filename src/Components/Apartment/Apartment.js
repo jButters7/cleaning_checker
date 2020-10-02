@@ -1,25 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import TenantCheck from '../TenantCheck/TenantCheck';
 
 function Apartment(props) {
 
   const [apartmentCheckInfo, setApartmentCheckInfo] = useState([]);
 
   useEffect(() => {
-    getTenantReports();
-  }, []);
-
-  const getTenantReports = () => {
     axios.get(`/api/tenant_reports/${props.monthId}/${props.apartmentId}`).then(res => {
-      console.log(res.data);
-    })
-  }
+      setApartmentCheckInfo(res.data);
+    }, [])
 
+  }, []);
 
   return (
     <div>
-      Apartment purchasing
+      {apartmentCheckInfo.map(tenantInfo => {
+        console.log(tenantInfo)
+        return (
+          <div>
+            <TenantCheck tenantInfo={tenantInfo} key={tenantInfo.tenant_id} />
+          </div>
+        )
+      })}
     </div>
   )
 }

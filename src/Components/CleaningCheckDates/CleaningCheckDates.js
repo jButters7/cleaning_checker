@@ -24,10 +24,11 @@ function CleaningCheckDates(props) {
     }).catch(err => alert(err.message));
   }
 
-
   const continueCleaningCheck = () => {
-    console.log('continuing')
+    props.setReduxMonthId(props.data.check_month_id);
+    props.pushToCurrentCheck();
   }
+
 
   const alterAddDateDisplay = () => {
     setIsCheckDateInputDisplayed(!isCheckDateInputDisplayed);

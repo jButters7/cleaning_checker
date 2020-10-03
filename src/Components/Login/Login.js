@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { loginUser } from '../../ducks/reducer';
+import './login.css'
 
 function Login(props) {
 
@@ -21,11 +22,16 @@ function Login(props) {
   }
 
   return (
-    <div>
-      <input placeholder='Email' type='text' onChange={e => setEmail(e.target.value)} />
-      <input placeholder='Password' type='password' onChange={e => setPassword(e.target.value)} />
-      <button onClick={() => login()}>Log In</button>
-      <button onClick={() => props.history.push('/register')}>Register</button>
+    <div className='login-container'>
+      <div className="input-container">
+        <input placeholder='Email' type='text' onChange={e => setEmail(e.target.value)} />
+        <input placeholder='Password' type='password' onChange={e => setPassword(e.target.value)} />
+
+      </div>
+      <div className='login-registration-btn-container'>
+        <button className='login-buttons' onClick={() => login()}>Log In</button>
+        <button className='login-buttons' onClick={() => props.history.push('/register')}>Register</button>
+      </div>
     </div>
   )
 }

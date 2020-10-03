@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
+import './nav.css';
 
 function Nav() {
   return (
-    <div>
+    <div className='nav-container'>
       Navigation Bar Goes Here
     </div>
   )

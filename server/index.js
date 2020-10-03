@@ -27,6 +27,7 @@ app.post('/auth/login', authCtrl.login);
 
 //User endpoints
 app.get(`/api/users`, userCtrl.getAllUsers);
+app.put('/api/users/:user_id', userCtrl.updateUserInformation);
 // app.delete('/api/user/:user_id', userController.deleteUser);
 
 //Check Endpoints

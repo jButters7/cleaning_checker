@@ -10,15 +10,17 @@ module.exports = {
 
 
     console.log('punch the fruit')
+    console.log(req.body)
 
-    const { first_name, last_name, email, phone_num, is_email_subscribed, is_text_subscribed, user_role, apartment_num, tenant_id } = req.body;
+    const { firstName, lastName, givenEmail, phoneNum, isEmailSub, isTextSub, userRole, apartmentNum, tenant_id } = req.body;
+
 
     const { user_id } = req.params;
 
-    await db.update_user_info(user_id, first_name, last_name, email, phone_num, is_email_subscribed, is_text_subscribed, user_role);
+    await db.update_user_info(user_id, firstName, lastName, givenEmail, phoneNum, isEmailSub, isTextSub, userRole);
 
     //get new apartment id 
-    const [newApartmentId] = await db.get_apartment_id(apartment_num);
+    const [newApartmentId] = await db.get_apartment_id(apartmentNum);
 
     await db.update_tenant_apartment(tenant_id, newApartmentId.apartment_id);
 

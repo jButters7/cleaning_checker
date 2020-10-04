@@ -21,7 +21,7 @@ function TenantList() {
   return (
     <div>
       {tenantArray.map(tenant => {
-        return <Tenant key={tenant.tenant_id} tenantInfo={tenant} />
+        return <Tenant key={tenant.tenant_id} tenantInfo={tenant} getTenants={getTenants} />
       })}
 
     </div>

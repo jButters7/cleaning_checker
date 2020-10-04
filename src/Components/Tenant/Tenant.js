@@ -38,8 +38,8 @@ function Tenant(props) {
           <div>
             Name
         <div className='name'>
-              <input type='text' value={firstName} onChange={e => setFirstName(e.target.value)} />
-              <input type='text' value={lastName} onChange={e => setLastName(e.target.value)} />
+              <input type='text' value={firstName} placeholder='First Name' onChange={e => setFirstName(e.target.value)} />
+              <input type='text' value={lastName} placeholder='Last Name' onChange={e => setLastName(e.target.value)} />
             </div>
           </div>
           <div>
@@ -56,10 +56,32 @@ function Tenant(props) {
           </div>
 
           <div>
-            Subscriptions
+            Notifications
         <div>
-              <input type='text' value={isEmailSub} onChange={e => setIsEmailSub(e.target.value)} />
-              <input type='text' value={isTextSub} onChange={e => setIsTextSub(e.target.value)} />
+              {(isEmailSub === "TRUE") ?
+                <div>
+                  <label>Email: </label>
+                 Yes<input type='radio' value="true" name='email' onClick={() => setIsEmailSub('TRUE')} checked />
+                 No<input type='radio' value="false" name='email' onClick={() => setIsEmailSub('FALSE')} />
+                </div> :
+                <div>
+                  <label>Email: </label>
+                  Yes<input type='radio' value="true" name='email' onClick={() => setIsEmailSub('TRUE')} />
+                  No <input type='radio' value="false" name='email' onClick={() => setIsEmailSub('FALSE')} checked />
+                </div>
+              }
+              {(isTextSub === "TRUE") ?
+                <div>
+                  <label>Text: </label>
+                  Yes<input type='radio' value="true" name='text' onClick={() => setIsTextSub('TRUE')} checked />
+                 No<input type='radio' value="false" name='text' onClick={() => setIsTextSub('FALSE')} />
+                </div> :
+                <div>
+                  <label>Text: </label>
+                  Yes<input type='radio' value="true" name='text' onClick={() => setIsTextSub('TRUE')} />
+                  No<input type='radio' value="false" name='text' onClick={() => setIsTextSub('FALSE')} checked />
+                </div>
+              }
             </div>
           </div>
 
@@ -68,18 +90,19 @@ function Tenant(props) {
         <div>
               {(userRole === "TENANT") ?
                 <div>
+                  Tenant
                   <input type='radio' name={tenant_id} value='TENANT' onClick={() => setUserRole('TENANT')} checked />
+                  Admin
                   <input type='radio' name={tenant_id} value='ADMIN' onClick={() => setUserRole('ADMIN')} />
                 </div>
                 :
                 <div>
+                  Tenant
                   <input type='radio' name={tenant_id} value='TENANT' onClick={() => setUserRole('TENANT')} />
+                  Admin
                   <input type='radio' name={tenant_id} value='ADMIN' onClick={() => setUserRole('ADMIN')} checked />
                 </div>
-
               }
-
-              <input type='text' value={userRole} onChange={e => setUserRole(e.target.value)} />
             </div>
           </div>
 
@@ -122,10 +145,10 @@ function Tenant(props) {
           </div>
 
           <div>
-            Subscriptions
+            Notifications
       <div>
-              {is_email_subscribed}
-              {is_text_subscribed}
+              {is_email_subscribed ? <div>Email &#9745;</div> : <div>Email &#9744;</div>}
+              {is_text_subscribed ? <div>Text &#9745;</div> : <div>Text &#9744;</div>}
             </div>
           </div>
 

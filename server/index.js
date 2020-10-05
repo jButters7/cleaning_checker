@@ -9,7 +9,7 @@ const checkCtrl = require('./checkController');
 
 const app = express();
 
-const { CONNECTION_STRING, SERVER_PORT, SESSION_SECRET } = process.env;
+const { CONNECTION_STRING, SERVER_PORT, SESSION_SECRET, EMAIL_ACCOUNT, EMAIL_AUTH } = process.env;
 
 app.use(express.json());
 
@@ -32,15 +32,44 @@ app.put('/api/user/:user_id', userCtrl.updateUserInformation);
 
 //Check Endpoints
 app.get('/api/check_months', checkCtrl.getAllCheckMonthsAndDates);
-app.post('/api/check_months/:year', checkCtrl.addCheckMonths);
 app.get('/api/check_months/:year', checkCtrl.getCheckMonthsInYear);
+app.get('/api/check_date', checkCtrl.getUpcomingCheckDates);
+app.post('/api/check_months/:year', checkCtrl.addCheckMonths);
 app.post('/api/check_date/:check_month_id', checkCtrl.addCheckDate);
 // app.post('/api/check', checkCtrl.addCleaningCheck);
-app.post('/api/check/', checkCtrl.beginCleaningCheck);
-app.put('/api/check_report/:tenant_report_id', checkCtrl.submitTenantCleaningCheck);
 app.get('/api/tenant_reports/:month_id/:apartment_id', checkCtrl.getTenantReports);
 app.get('/api/check/', checkCtrl.getAllApartments);
 app.get('/api/check/:user_id', checkCtrl.getTenantCleaningCheckHistory);
+app.post('/api/check/:check_month_id', checkCtrl.beginCleaningCheck);
+app.put('/api/check_report/:tenant_report_id', checkCtrl.submitTenantCleaningCheck);
+app.put('/api/check/:month_id', checkCtrl.archiveMonth);
+
+
+
+
+// let transporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//     user: EMAIL_ACCOUNT,
+//     pass: EMAIL_AUTH
+//   }
+// })
+
+// let mailOptions = {
+//   from: EMAIL_AUTH,
+//   to: 'jacobbutters@gmail.com',
+//   subject: 'Hello Jake',
+//   text: 'It Worked'
+// };
+
+// transporter.sendMail(mailOptions, function (err, data) {
+//   if (err) {
+//     console.log('Error Occurs');
+//   } else {
+//     console.log('Email Sent');
+//   }
+// });
+
 
 massive({
   connectionString: CONNECTION_STRING,

@@ -1,4 +1,8 @@
+require('dotenv').config();
 const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
+const { EMAIL_ACCOUNT, EMAIL_AUTH } = process.env;
+
 
 module.exports = {
   register: async (req, res) => {
@@ -6,10 +10,8 @@ module.exports = {
     const db = req.app.get('db');
     const { first_name, last_name, email, phone_num, is_email_subscribed, is_text_subscribed, apartment_num, password } = req.body;
 
-    // console.log(is_email_subscribed, is_text_subscribed)
     const [user] = await db.check_email([email]);
 
-    // console.log(apartment_num)
     if (user) {
       return res.status(409).send('User already exists with that email');
     }
@@ -21,17 +23,37 @@ module.exports = {
 
     //Gets apartments id from db
     const [apartmentId] = await db.get_apartment_id(apartment_num)
-    // console.log('apartmentId', apartmentId.apartment_id)
-    // console.log('newUserId', newUser)
 
     //Uses users newly created id and apartment id to add the user to that apartment.  
     await db.assign_tenant_apartment(newUser.user_id, apartmentId.apartment_id)
 
     newUser.apartment_num = apartment_num;
 
-    // console.log('newUser', newUser)
 
-    // req.session.user = newUser;
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: EMAIL_ACCOUNT,
+        pass: EMAIL_AUTH
+      }
+    })
+
+    let mailOptions = {
+      from: EMAIL_AUTH,
+      to: email,
+      subject: 'Registration Successful',
+      text: `${first_name} ${last_name}, your registration to the Cleaning Check online application was successful. Please take a look around and familiarize yourself with the site.`
+    };
+
+    transporter.sendMail(mailOptions, function (err, data) {
+      if (err) {
+        console.log('Error in Register Email');
+      } else {
+        console.log('Email Sent');
+      }
+    });
+
+
     //! I will most likely not want to send anything seeing that they just created an account. The user will need to login still
     res.status(201).send(newUser)
   },

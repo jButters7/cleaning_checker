@@ -54,11 +54,19 @@ module.exports = {
     res.status(200).send(allCheckMonths);
   },
 
+  getUpcomingCheckDates: async (req, res) => {
+    const db = req.app.get('db');
+
+    const upcomingCheckDates = await db.get_upcoming_check_dates();
+
+    res.status(200).send(upcomingCheckDates);
+  },
+
   beginCleaningCheck: async (req, res) => {
     const db = req.app.get('db');
 
     console.log('body', req.body);
-    const { check_month_id } = req.body;
+    const { check_month_id } = req.params;
 
     await db.alter_month_status_to_inprogress(check_month_id);
 
@@ -119,6 +127,16 @@ module.exports = {
     const TenantCleaningCheckHistory = await db.get_tenant_cleaning_check_history(user_id);
 
     res.status(200).send(TenantCleaningCheckHistory);
+  },
+
+  archiveMonth: async (req, res) => {
+    const db = req.app.get('db');
+    const { month_id } = req.params;
+    console.log('monthid', month_id);
+
+    const monthArchived = await db.archive_month(month_id);
+
+    res.status(200).send(monthArchived);
   }
 
 

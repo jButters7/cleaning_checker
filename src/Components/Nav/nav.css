@@ -1,7 +1,27 @@
+:root{
+  --most-dark-color: #00334e;
+  --less-dark-color: #145374;
+  --lightest-color: #f6f5f5;
+  --highlight-color: #ee6f57;
+}
+
+
+
+.nav-bar{
+  display: fixed;
+}
+
 .nav-container{
-  height: 50px;
-  background-color: #0f3057;
-  color: white;
+  height: 48px;
+  background-color: var(--most-dark-color);
+  font-size: 17;
+  color: var(--lightest-color);
   display: flex;
   align-items: center;
+}
+
+.nav-container .link{
+  color: var(--lightest-color);
+  margin: 0 10px;
+  text-decoration: none;
 }

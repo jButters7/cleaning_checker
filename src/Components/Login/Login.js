@@ -3,6 +3,8 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { loginUser } from '../../ducks/reducer';
 import './login.css'
+import spray from '../../assets/pics/spray-bottle.png';
+
 
 function Login(props) {
 
@@ -24,13 +26,23 @@ function Login(props) {
   return (
     <div className='login-container'>
       <div className="input-container">
+        <img className='app-logo' src={spray} />
         <input placeholder='Email' type='text' onChange={e => setEmail(e.target.value)} />
         <input placeholder='Password' type='password' onChange={e => setPassword(e.target.value)} />
 
       </div>
       <div className='login-registration-btn-container'>
         <button className='login-buttons' onClick={() => login()}>Log In</button>
-        <button className='login-buttons' onClick={() => props.history.push('/register')}>Register</button>
+      </div>
+
+      <div className='register-container'>
+        <div className='no-account'>
+          <div className='register-line'></div>
+          <div>Don't have an Account?</div>
+          <div className='register-line'></div>
+        </div>
+
+        <button className='login-buttons' onClick={() => props.history.push('/register')}>Register Here</button>
       </div>
     </div>
   )

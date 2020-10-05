@@ -6,13 +6,18 @@ import TenantCheck from '../TenantCheck/TenantCheck';
 function Apartment(props) {
 
   const [apartmentCheckInfo, setApartmentCheckInfo] = useState([]);
+  const [reRender, makeReRender] = useState(false);
 
   useEffect(() => {
     axios.get(`/api/tenant_reports/${props.monthId}/${props.apartmentId}`).then(res => {
       setApartmentCheckInfo(res.data);
     }, [])
 
-  }, []);
+  }, [reRender]);
+
+  const runRender = () => {
+    makeReRender(!reRender);
+  }
 
   return (
     <div>
@@ -20,7 +25,7 @@ function Apartment(props) {
         console.log(tenantInfo)
         return (
           <div>
-            <TenantCheck tenantInfo={tenantInfo} key={tenantInfo.tenant_id} />
+            <TenantCheck tenantInfo={tenantInfo} runRender={runRender} key={tenantInfo.tenant_id} />
           </div>
         )
       })}

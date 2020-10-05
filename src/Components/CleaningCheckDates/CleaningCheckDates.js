@@ -6,21 +6,21 @@ import { setReduxMonthId } from '../../ducks/reducer';
 
 
 function CleaningCheckDates(props) {
-  const [specificCheckDateId, setSpecificCheckDateId] = useState({});
+  const [specificMonthId, setSpecificMonthId] = useState(null);
   const [monthStatus, setMonthStatus] = useState('');
   const [isCheckDateInputDisplayed, setIsCheckDateInputDisplayed] = useState(false);
   const [check_date, setAddCheckDate] = useState('');
 
   useEffect(() => {
-    setSpecificCheckDateId(props.data.check_dates[0])
+    setSpecificMonthId(props.data.check_month_id)
     setMonthStatus(props.data.status)
   }, [])
 
-  const beginCleaningCheck = () => {
-    axios.post(`/api/check/`, specificCheckDateId).then(res => {
+  const beginCleaningCheck = (props) => {
+    axios.post(`/api/check/${specificMonthId}`).then(res => {
       console.log(props.data.check_month_id);
       props.setReduxMonthId(props.data.check_month_id);
-
+      props.pushToCurrentCheck();
     }).catch(err => alert(err.message));
   }
 
@@ -42,6 +42,14 @@ function CleaningCheckDates(props) {
       console.log(res.data);
     }).catch(err => alert(err.message));
     alterAddDateDisplay();
+    props.reRenderFunction();
+    console.log(props)
+  }
+
+  const archiveMonth = (checkMonthId, props) => {
+    axios.put(`/api/check/${checkMonthId}`).then(res => {
+      console.log(res.data)
+    }).catch(err => alert(err.message));
     props.reRenderFunction();
   }
 
@@ -72,7 +80,7 @@ function CleaningCheckDates(props) {
         }
 
         {!isCheckDateInputDisplayed ?
-          <button onClick={() => alterAddDateDisplay()}>Add Check Date</button> :
+          <button onClick={() => alterAddDateDisplay()}>Add Date</button> :
           <div>
             <button onClick={() => {
               return saveCheckDate(props.data.check_month_id, props);
@@ -82,10 +90,13 @@ function CleaningCheckDates(props) {
         }
 
         {(monthStatus === 'INITIAL') ?
-          <button onClick={() => beginCleaningCheck()}>Begin Cleaning Check</button> :
+          <button onClick={() => beginCleaningCheck(props)}>Begin Cleaning Check</button> :
           (monthStatus === 'INPROGRESS') ?
-            <button button onClick={() => continueCleaningCheck()}>Continue Cleaning Check</button> :
-            <button>Archive</button>}
+            <div>
+              <button button onClick={() => continueCleaningCheck()}>Continue Cleaning Check</button>
+              <button onClick={() => archiveMonth(props.data.check_month_id, props)}>Archive</button>
+            </div> : null}
+
 
       </div>
     </div >

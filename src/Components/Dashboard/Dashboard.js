@@ -6,18 +6,27 @@ import TenantReport from '../TenantReport/TenantReport';
 function Dashboard(props) {
 
   const [cleaningCheckHistory, setCleaningCheckHistory] = useState([]);
+  const [upcomingCheckDates, setUpcomingCheckDates] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios.get(`/api/check/${props.userId}`).then(res => {
-      setCleaningCheckHistory(res.data)
+      console.log(res.data);
+      axios.get('/api/check_date').then(dateInfo => {
+        setCleaningCheckHistory(res.data)
+        setUpcomingCheckDates(dateInfo.data)
+        setIsLoading(false)
+      })
     })
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 
 
-  return (
+  return isLoading ? <p>loading...</p> : (
     <div>
+      {console.log(upcomingCheckDates[0])}
       {cleaningCheckHistory.map(cleaningReport => {
         return (
           <div>

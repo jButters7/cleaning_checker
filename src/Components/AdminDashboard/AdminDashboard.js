@@ -38,11 +38,14 @@ function AdminDashboard(props) {
       <input type='text' placeholder='YYYY' onChange={e => setNewYear(e.target.value)} />
       <button onClick={() => addCheckMonthsForNewYear()}>Add New Year</button>
       {upcomingCheckDates.map(element => {
-        return (
-          <div>
-            < CleaningCheckDates key={element.check_month_id} data={element} reRenderFunction={reRender} pushToCurrentCheck={pushToCurrentCheck} />
-          </div>
-        )
+
+        if (element.status !== 'ARCHIVED') {
+          return (
+            <div>
+              < CleaningCheckDates key={element.check_month_id} data={element} reRenderFunction={reRender} pushToCurrentCheck={pushToCurrentCheck} />
+            </div>
+          )
+        }
       })}
 
     </div>

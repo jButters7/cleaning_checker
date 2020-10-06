@@ -71,10 +71,15 @@ function CleaningCheckDates(props) {
   return (
     <div className='cleaningcheckdates-container'>
 
-      <div className='ccd-inner-container'>
+      <div className={(monthStatus !== 'ARCHIVED' ? 'ccd-inner-container' : 'archived-inner-container')}>
         <div className='month-info'>
-          {/* This the MONTH & YEAR */}
-          {moment(props.data.check_month).format('MMMM YYYY')}
+          {/* This the MONTH & YEAR thie turnary will display the month differently giving it a class if it is archived*/}
+          {(monthStatus !== 'ARCHIVED') ?
+            moment(props.data.check_month).format('MMMM YYYY') :
+            <h4 className='archived-month'>
+              {moment(props.data.check_month).format('MMMM YYYY')}
+            </h4>
+          }
 
         </div>
 
@@ -83,14 +88,17 @@ function CleaningCheckDates(props) {
           return (
             <div key={dates.check_date_id} className='date-and-edit-btns'>
               {!editDateInputsDisplay ?
-                <div>
+                <div >
                   {/* This the ACTUAL CLEANING CHECK DATE */}
-                  {moment(dates.check_date).format('ll')}
+                  {(monthStatus !== 'ARCHIVED') ?
+                    moment(dates.check_date).format('ll') :
+                    null
+                  }
                 </div> :
                 <input type='date' className='date-input-box' onChange={e => setEditCheckDateInfo(e.target.value)} />
               }
 
-              {(monthStatus !== 'INPROGRESS') ?
+              {(monthStatus === 'INITIAL') ?
                 !editDateInputsDisplay ?
                   <button className='check-dates-btn edit-btn' onClick={() => setEditDateInputsDisplay(!editDateInputsDisplay)}>Edit Date</button> :
                   <div>
@@ -100,8 +108,6 @@ function CleaningCheckDates(props) {
                 :
                 null
               }
-
-
             </div>
           )
         })}
@@ -141,6 +147,10 @@ function CleaningCheckDates(props) {
           :
           null
         }
+
+        {monthStatus === 'ARCHIVED' ?
+          <button className='check-dates-btn edit-past-btn' onClick={() => continueCleaningCheck()}>Edit</button> :
+          null}
 
 
       </div>

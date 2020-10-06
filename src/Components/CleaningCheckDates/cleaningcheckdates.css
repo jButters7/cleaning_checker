@@ -2,6 +2,7 @@
 .month-info{
   font-weight: 700;
   font-size: 25px;
+  margin-bottom: 10px;
 }
 
 .check-dates-btn{
@@ -20,6 +21,7 @@
   box-shadow: none;
   outline: black;
 }
+
 
 .check-dates-btn:hover{
   box-shadow: 0px 0px 16px -1px rgba(0,0,0,0.75);
@@ -49,12 +51,20 @@ right: -10px;
   top: -10px;
   right: -10px;
 }
-
-
-.continue-btn{
-  /* info */
-}
-
 .archive-btn{
   width: 80px;
+}
+
+
+/* BELOW IS THE ARCHIVE PAGE */
+
+.archived-inner-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-past-btn{
+margin-top: 0px;
+width: 80px;
 }

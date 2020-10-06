@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CleaningCheckDates from '../CleaningCheckDates/CleaningCheckDates';
-
+import './admindashboard.css';
 
 function AdminDashboard(props) {
   const [newYear, setNewYear] = useState('');
@@ -34,14 +34,16 @@ function AdminDashboard(props) {
   }
 
   return (
-    <div>
-      <input type='text' placeholder='YYYY' onChange={e => setNewYear(e.target.value)} />
-      <button onClick={() => addCheckMonthsForNewYear()}>Add New Year</button>
+    <div className='admin-dashboard'>
+      <div className='new-date-container'>
+        <input type='text' placeholder='YYYY' onChange={e => setNewYear(e.target.value)} />
+        <button onClick={() => addCheckMonthsForNewYear()}>Add New Year</button>
+      </div>
       {upcomingCheckDates.map(element => {
 
         if (element.status !== 'ARCHIVED') {
           return (
-            <div>
+            <div className='cleaning-check-dates'>
               < CleaningCheckDates key={element.check_month_id} data={element} reRenderFunction={reRender} pushToCurrentCheck={pushToCurrentCheck} />
             </div>
           )

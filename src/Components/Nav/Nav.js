@@ -9,7 +9,7 @@ function Nav() {
         <Link className='link' to={{ pathname: '/admindashboard' }}>Dashboard</Link>
         <Link className='link' to={{ pathname: '/tenantlist' }}>Current Tenants</Link>
         <Link className='link' to={{ pathname: '/archive' }}>Archive</Link>
-        <button>Logout</button>
+        <button className='nav-logout-button'>Logout</button>
       </div>
     </div>
   )

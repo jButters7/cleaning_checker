@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './register.css'
 
 function Register(props) {
   const [first_name, setFirstName] = useState('');
@@ -19,20 +20,26 @@ function Register(props) {
 
 
   return (
-    <div>
-      <input placeholder='First Name' onChange={e => setFirstName(e.target.value)} />
-      <input placeholder='Last Name' onChange={e => setLastName(e.target.value)} />
-      <input placeholder='Apartment Number' type='number' min='1' max='64' onChange={e => setApartNum(e.target.value)} />
-      <input placeholder='Email' onChange={e => setEmail(e.target.value)} />
-      <input placeholder='Phone Number (optional)' onChange={e => setPhone(e.target.value)} />
-      <input placeholder='Password' type='password' onChange={e => setPassword(e.target.value)} />
-      <div>
-        Email Notifications
-        <input type='checkbox' onClick={() => setEmailSubscribed(!is_email_subscribed)} />
-       Text Notifications
-        <input type='checkbox' onClick={() => setTextSubscribed(!is_text_subscribed)} />
+    <div className='main-register-container'>
+      <div className='input-container'>
+        <input placeholder='First Name' onChange={e => setFirstName(e.target.value)} />
+        <input placeholder='Last Name' onChange={e => setLastName(e.target.value)} />
+        <input placeholder='Apartment Number' type='number' min='1' max='64' onChange={e => setApartNum(e.target.value)} />
+        <input placeholder='Email' onChange={e => setEmail(e.target.value)} />
+        <input placeholder='Phone Number (optional)' onChange={e => setPhone(e.target.value)} />
+        <input placeholder='Password' type='password' onChange={e => setPassword(e.target.value)} />
       </div>
-      <button onClick={() => register()}>Register</button>
+      <div className='notifications'>
+        <div>
+          <label name='email'>Email Notifications</label>
+          <input className='checkbox' type='checkbox' name='email' onClick={() => setEmailSubscribed(!is_email_subscribed)} />
+        </div>
+        <div>
+          <label name='text'>Text Notifications</label>
+          <input className='checkbox' type='checkbox' name='text' onClick={() => setTextSubscribed(!is_text_subscribed)} />
+        </div>
+      </div>
+      <button className='register-button' onClick={() => register()}>Register</button>
     </div>
   )
 }

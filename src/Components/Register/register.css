@@ -6,29 +6,16 @@
   --highlight-color: #ee6f57;
 }
 
-.login-container{
+
+.main-register-container{
+  align-items: center;
   background-color: var(--less-dark-color);
   padding: 40px;
   display: flex;
   flex-direction: column;
-  margin: 100px 200px;
+  margin: 70px 200px;
   justify-content: center;
   border-radius: 10px;
-}
-
-.app-logo{
-  height: 100px;
-  margin-bottom: 30px;
-}
-
-.title-text{
-  color: var(--lightest-color)
-}
-
-.login-registration-btn-container{
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .input-container{
@@ -38,33 +25,37 @@
 }
 
 .input-container input{
-  width: 200px;
+  width: 250px;
   font-size: 18px;
   margin: 10px auto;
   border-radius: 7px;
   border: none;
   outline: none;
-  padding: 6px;
-}
-
-.login-inputs{
-  width: 50%;
-  margin: 10px 0;
-  padding: 9px;
-  border: none;
-  border-radius: 10px;
-  outline: none;
-  box-shadow:0 0 15px 4px rgba(0,0,0,0.26);
+  padding: 7px;
   font-size: 16px;
+  box-shadow:0 0 15px 4px rgba(0,0,0,0.26);
 }
 
-.login-buttons{
+.notifications{
+  color: var(--lightest-color);
+  font-size: 16;
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  align-items: center;
+}
+
+.checkbox{
+margin-left: 10px;
+}
+
+.register-button{
   -webkit-appearance:none;
   appearance:none;
   background-color: var(--highlight-color);
   border:none;
   border-radius:5px;
-  color: var(--most-dark-color);
+  color: black;
   cursor: pointer;
   font-size: 16px;
   font-weight:600;
@@ -75,27 +66,6 @@
   outline: black;
 }
 
-.login-buttons:hover{
+.register-button:hover{
   box-shadow: none
-}
-
-
-.register-container{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.no-account{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  color: white;
-  font-size: 20px;
-}
-
-.register-line{
-  width: 100px;
-  border-bottom: 1px solid black;
-  margin: 15px;
 }

@@ -1,0 +1,27 @@
+:root{
+  --most-dark-color: #00334e;
+  --less-dark-color: #145374;
+  --lightest-color: #f6f5f5;
+  --highlight-color: #ee6f57;
+}
+
+.admin-dashboard{
+  background-color: var(--lightest-color);
+}
+
+.new-date-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--highlight-color);
+  margin: 40px;
+  padding: 20px;
+}
+
+.cleaning-check-dates{
+  background-color: var(--less-dark-color);
+  margin: 25px 100px;
+  border-radius: 10px;
+  padding: 20px;
+}
+

@@ -1,5 +1,14 @@
+
+:root{
+  --most-dark-color: #00334e;
+  --less-dark-color: #145374;
+  --lightest-color: #f6f5f5;
+  --highlight-color: #ee6f57;
+}
+
+
 .App {
-background-color: #e7e7de;
+background-color: var(--lightest-color);
 box-sizing: border-box;
 height: 100vh;
 }

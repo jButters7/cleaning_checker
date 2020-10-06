@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import TenantReport from '../TenantReport/TenantReport';
+import moment from 'moment';
 
 function Dashboard(props) {
 
@@ -11,29 +12,47 @@ function Dashboard(props) {
 
   useEffect(() => {
     axios.get(`/api/check/${props.userId}`).then(res => {
-      console.log(res.data);
       axios.get('/api/check_date').then(dateInfo => {
-        setCleaningCheckHistory(res.data)
-        setUpcomingCheckDates(dateInfo.data)
-        setIsLoading(false)
+        setCleaningCheckHistory(res.data);
+        setUpcomingCheckDates(dateInfo.data);
+        setIsLoading(false);
       })
     })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  console.log('cch', cleaningCheckHistory)
 
-
-  return isLoading ? <p>loading...</p> : (
+  return isLoading ? <p>You Must Log In To View Dashboard</p> : (
     <div>
-      {console.log(upcomingCheckDates[0])}
-      {cleaningCheckHistory.map(cleaningReport => {
-        return (
-          <div>
-            <TenantReport cleaningReport={cleaningReport} />
-          </div>
-        )
-      })}
+      <div>
+
+        {(upcomingCheckDates[0] === undefined) ?
+          <h3>No Cleaning Check Scheduled</h3> :
+          <h3>Upcoming Cleaning Check On: {moment(upcomingCheckDates[0].check_date).format('MMMM Do YYYY')}
+          </h3>}
+      </div>
+
+      {(cleaningCheckHistory[0] === undefined) ?
+        <div>
+          <h2>No Cleaning Check History to Display</h2>
+          <h3>Please Check Back Later</h3>
+        </div>
+        :
+
+        <div>
+          {cleaningCheckHistory.map(cleaningReport => {
+            return (
+              <div>
+                <TenantReport cleaningReport={cleaningReport} />
+              </div>
+            )
+          })
+          }
+        </div>
+      }
+
     </div>
   )
 }

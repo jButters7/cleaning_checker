@@ -35,21 +35,27 @@ function AdminDashboard(props) {
 
   return (
     <div className='admin-dashboard'>
-      <div className='new-date-container'>
-        <input type='text' placeholder='YYYY' onChange={e => setNewYear(e.target.value)} />
-        <button onClick={() => addCheckMonthsForNewYear()}>Add New Year</button>
+
+      <div className='all-dates-container'>
+        {upcomingCheckDates.map(element => {
+
+          if (element.status !== 'ARCHIVED') {
+            return (
+              <div className='cleaning-check-dates'>
+                < CleaningCheckDates key={element.check_month_id} data={element} reRenderFunction={reRender} pushToCurrentCheck={pushToCurrentCheck} />
+              </div>
+            )
+          }
+        })}
       </div>
-      {upcomingCheckDates.map(element => {
 
-        if (element.status !== 'ARCHIVED') {
-          return (
-            <div className='cleaning-check-dates'>
-              < CleaningCheckDates key={element.check_month_id} data={element} reRenderFunction={reRender} pushToCurrentCheck={pushToCurrentCheck} />
-            </div>
-          )
-        }
-      })}
-
+      <div className='new-date-container'>
+        <h3 className='new-year-title'>Add A New Year</h3>
+        <div className='new-year-container'>
+          <input className='input-new-year' type='text' placeholder='YYYY' onChange={e => setNewYear(e.target.value)} />
+          <button className='check-dates-btn' onClick={() => addCheckMonthsForNewYear()}>Save</button>
+        </div>
+      </div>
     </div>
   )
 }

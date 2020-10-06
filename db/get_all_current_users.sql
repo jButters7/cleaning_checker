@@ -14,4 +14,5 @@ a.apartment_num
 FROM users u
 JOIN tenants t ON t.user_id = u.user_id
 JOIN apartments a ON t.apartment_id = a.apartment_id
+WHERE u.status = 'CURRENT'
 ORDER BY a.apartment_num ASC;

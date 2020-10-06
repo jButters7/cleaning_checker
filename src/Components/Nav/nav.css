@@ -6,7 +6,10 @@
 }
 
 .nav-bar{
-  display: fixed;
+  position: fixed;
+  width: 100%;
+  top:0px;
+  z-index: 9999;
 }
 
 .nav-container{

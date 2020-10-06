@@ -3,6 +3,7 @@ import axios from 'axios';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { setReduxMonthId } from '../../ducks/reducer';
+import './cleaningcheckdates.css'
 
 
 function CleaningCheckDates(props) {
@@ -10,11 +11,17 @@ function CleaningCheckDates(props) {
   const [monthStatus, setMonthStatus] = useState('');
   const [isCheckDateInputDisplayed, setIsCheckDateInputDisplayed] = useState(false);
   const [check_date, setAddCheckDate] = useState('');
+  const [existingDate, setExistingDate] = useState('');
+  const [editDateInputsDisplay, setEditDateInputsDisplay] = useState(false);
+  const [editCheckDateInfo, setEditCheckDateInfo] = useState('');
 
   useEffect(() => {
-    setSpecificMonthId(props.data.check_month_id)
-    setMonthStatus(props.data.status)
+    setSpecificMonthId(props.data.check_month_id);
+    setMonthStatus(props.data.status);
+    setExistingDate(props.data.check_dates[0]);
   }, [])
+
+  console.log(existingDate);
 
   const beginCleaningCheck = (props) => {
     axios.post(`/api/check/${specificMonthId}`).then(res => {
@@ -53,11 +60,19 @@ function CleaningCheckDates(props) {
     props.reRenderFunction();
   }
 
-  return (
-    <div>
+  const editCheckDate = (dateId, props) => {
+    axios.put(`/api/check_date/${dateId}/${editCheckDateInfo}`).then(res => {
+      console.log(res.data);
+    }).catch(err => alert(err.message));
+    props.reRenderFunction();
+    setEditDateInputsDisplay(false)
+  }
 
-      <div>
-        <div>
+  return (
+    <div className='cleaningcheckdates-container'>
+
+      <div className='ccd-inner-container'>
+        <div className='month-info'>
           {/* This the MONTH & YEAR */}
           {moment(props.data.check_month).format('MMMM YYYY')}
 
@@ -66,36 +81,66 @@ function CleaningCheckDates(props) {
         {/* This next .map looks at the individual element and maps over the dates within that element. */}
         {props.data.check_dates.map(dates => {
           return (
-            <div key={dates.check_date_id}>
-              {moment(dates.check_date).format('ll')}
+            <div key={dates.check_date_id} className='date-and-edit-btns'>
+              {!editDateInputsDisplay ?
+                <div>
+                  {/* This the ACTUAL CLEANING CHECK DATE */}
+                  {moment(dates.check_date).format('ll')}
+                </div> :
+                <input type='date' className='date-input-box' onChange={e => setEditCheckDateInfo(e.target.value)} />
+              }
+
+              {(monthStatus !== 'INPROGRESS') ?
+                !editDateInputsDisplay ?
+                  <button className='check-dates-btn edit-btn' onClick={() => setEditDateInputsDisplay(!editDateInputsDisplay)}>Edit Date</button> :
+                  <div>
+                    <button className='check-dates-btn' onClick={() => editCheckDate(dates.check_date_id, props)}>Save Edit</button>
+                    <button className='check-dates-btn' onClick={() => setEditDateInputsDisplay(!editDateInputsDisplay)}>Cancel</button>
+                  </div>
+                :
+                null
+              }
+
+
             </div>
           )
         })}
 
         {isCheckDateInputDisplayed ?
           <div>
-            <input type="date" onChange={e => setAddCheckDate(e.target.value)} />
+            <input type="date" className='date-input-box' onChange={e => setAddCheckDate(e.target.value)} />
           </div> :
           null
         }
 
-        {!isCheckDateInputDisplayed ?
-          <button onClick={() => alterAddDateDisplay()}>Add Date</button> :
-          <div>
-            <button onClick={() => {
-              return saveCheckDate(props.data.check_month_id, props);
-            }}>Save Date</button>
-            <button onClick={() => alterAddDateDisplay()}>Cancel</button>
-          </div>
+        {(existingDate === undefined) ?
+          !isCheckDateInputDisplayed ?
+            <button className='check-dates-btn' onClick={() => alterAddDateDisplay()}>Add Date</button> :
+            <div>
+              <button className='check-dates-btn' onClick={() => {
+                return saveCheckDate(props.data.check_month_id, props);
+              }}>Save Date</button>
+              <button className='check-dates-btn' onClick={() => alterAddDateDisplay()}>Cancel</button>
+            </div>
+          :
+          null
         }
 
-        {(monthStatus === 'INITIAL') ?
-          <button onClick={() => beginCleaningCheck(props)}>Begin Cleaning Check</button> :
-          (monthStatus === 'INPROGRESS') ?
+
+        {(existingDate !== undefined) ?
+
+          (monthStatus === 'INITIAL') ?
             <div>
-              <button button onClick={() => continueCleaningCheck()}>Continue Cleaning Check</button>
-              <button onClick={() => archiveMonth(props.data.check_month_id, props)}>Archive</button>
-            </div> : null}
+              <button className='check-dates-btn begin-continue-btn' onClick={() => beginCleaningCheck(props)}>Begin Cleaning Check</button>
+            </div> :
+            (monthStatus === 'INPROGRESS') ?
+              <div className='continue-archive-container'>
+                <button className='check-dates-btn archive-btn' onClick={() => archiveMonth(props.data.check_month_id, props)}>Archive</button>
+                <button className='check-dates-btn continue-btn' onClick={() => continueCleaningCheck()}>Continue Cleaning Check</button>
+              </div> : null
+          :
+          null
+        }
 
 
       </div>

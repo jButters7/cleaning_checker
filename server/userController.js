@@ -1,8 +1,8 @@
 module.exports = {
-  getAllUsers: async (req, res) => {
+  getAllCurrentUsers: async (req, res) => {
     const db = req.app.get('db');
-    const allUsers = await db.get_all_users();
-    res.status(200).send(allUsers);
+    const allCurrentUsers = await db.get_all_current_users();
+    res.status(200).send(allCurrentUsers);
   },
 
   updateUserInformation: async (req, res) => {
@@ -25,5 +25,15 @@ module.exports = {
     await db.update_tenant_apartment(tenant_id, newApartmentId.apartment_id);
 
     res.sendStatus(200);
+  },
+
+
+  deleteUser: async (req, res) => {
+    const db = req.app.get('db');
+    const { user_id } = req.params
+
+    await db.alter_user_status(user_id);
+
+    res.sendStatus(200)
   }
 }

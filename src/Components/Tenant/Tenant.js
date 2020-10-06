@@ -25,8 +25,13 @@ function Tenant(props) {
     }).catch(err => alert(err.message));
   }
 
-
-
+  const deleteUser = () => {
+    axios.delete(`/api/user/${user_id}`).then(res => {
+      console.log(res.data);
+      console.log(props);
+      props.getTenants();
+    })
+  }
 
 
   return (
@@ -168,7 +173,7 @@ function Tenant(props) {
 
           <div>
             <button onClick={() => setIsEditing(!isEditing)}>Edit Info</button>
-            <button>Delete Tenant</button>
+            <button onClick={() => deleteUser()}>Delete Tenant</button>
           </div>
         </div>}
     </div>

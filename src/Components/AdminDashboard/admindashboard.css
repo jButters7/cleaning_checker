@@ -1,27 +1,49 @@
-:root{
-  --most-dark-color: #00334e;
-  --less-dark-color: #145374;
-  --lightest-color: #f6f5f5;
-  --highlight-color: #ee6f57;
-}
 
 .admin-dashboard{
   background-color: var(--lightest-color);
+  padding-bottom: 30px;
+}
+
+.all-dates-container{
+  padding-top: 70px;
 }
 
 .new-date-container{
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
-  background-color: var(--highlight-color);
-  margin: 40px;
+  background-color: var(--less-dark-color);
+  margin: 40px 300px 20px 300px;
   padding: 20px;
+  border-radius: 10px;
+  color: white;
+  font-size: 25px;
 }
 
 .cleaning-check-dates{
   background-color: var(--less-dark-color);
-  margin: 25px 100px;
+  margin: 30px 150px;
   border-radius: 10px;
   padding: 20px;
+  color: white;
+  font-size: 20px;
+  box-sizing: border-box;
 }
 
+.new-year-title{
+  margin-top: 10px;
+}
+
+.new-year-container{
+  margin-top: -15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-new-year{
+  font-size: 16px;
+  width: 20%;
+  height: 25px;
+}

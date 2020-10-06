@@ -26,8 +26,9 @@ app.post(`/auth/register`, authCtrl.register);
 app.post('/auth/login', authCtrl.login);
 
 //User endpoints
-app.get(`/api/users`, userCtrl.getAllUsers);
+app.get(`/api/users`, userCtrl.getAllCurrentUsers);
 app.put('/api/user/:user_id', userCtrl.updateUserInformation);
+app.delete('/api/user/:user_id', userCtrl.deleteUser);
 // app.delete('/api/user/:user_id', userController.deleteUser);
 
 //Check Endpoints
@@ -36,6 +37,7 @@ app.get('/api/check_months/:year', checkCtrl.getCheckMonthsInYear);
 app.get('/api/check_date', checkCtrl.getUpcomingCheckDates);
 app.post('/api/check_months/:year', checkCtrl.addCheckMonths);
 app.post('/api/check_date/:check_month_id', checkCtrl.addCheckDate);
+app.put('/api/check_date/:check_date_id/:check_date', checkCtrl.editCheckDate);
 // app.post('/api/check', checkCtrl.addCleaningCheck);
 app.get('/api/tenant_reports/:month_id/:apartment_id', checkCtrl.getTenantReports);
 app.get('/api/check/', checkCtrl.getAllApartments);

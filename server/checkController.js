@@ -122,7 +122,6 @@ module.exports = {
   getTenantCleaningCheckHistory: async (req, res) => {
     const db = req.app.get('db');
     const { user_id } = req.params;
-    console.log('userid', user_id)
 
     const TenantCleaningCheckHistory = await db.get_tenant_cleaning_check_history(user_id);
 
@@ -132,11 +131,20 @@ module.exports = {
   archiveMonth: async (req, res) => {
     const db = req.app.get('db');
     const { month_id } = req.params;
-    console.log('monthid', month_id);
 
     const monthArchived = await db.archive_month(month_id);
 
     res.status(200).send(monthArchived);
+  },
+
+  editCheckDate: async (req, res) => {
+    const db = req.app.get('db');
+    const { check_date_id, check_date } = req.params;
+
+    await db.edit_check_date(check_date_id, check_date);
+
+    res.sendStatus(200);
+
   }
 
 

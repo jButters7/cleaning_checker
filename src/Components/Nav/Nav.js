@@ -1,18 +1,27 @@
 import React from 'react';
 import './nav.css';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-function Nav() {
+function Nav(props) {
   return (
-    <div className='nav-bar'>
-      <div className='nav-container'>
+
+    <nav className='nav-container'>
+      <nav>
         <Link className='link' to={{ pathname: '/admindashboard' }}>Dashboard</Link>
         <Link className='link' to={{ pathname: '/tenantlist' }}>Current Tenants</Link>
         <Link className='link' to={{ pathname: '/archive' }}>Archive</Link>
+
+      </nav>
+      <div>
+        {props.userFirstName} {props.userLastName}
         <button className='nav-logout-button'>Logout</button>
       </div>
-    </div>
+    </nav>
+
   )
 }
 
-export default Nav;
+const mapStateToProps = reduxState => reduxState;
+
+export default connect(mapStateToProps)(Nav);

@@ -4,19 +4,23 @@ import moment from 'moment';
 
 function TenantReport(props) {
 
-
-
   return (
-    <div>
-      <div>
-        {moment(props.cleaningReport.check_month).format('MMMM YYYY')}
+    <div className='tenant-contents'>
+      <div className='month-and-status'>
+        <div className='report-month'>
+          <h4>
+            {moment(props.cleaningReport.check_month).format('MMMM YYYY')}
+          </h4>
+        </div>
+        <div className='check-status'>
+          {(props.cleaningReport.status === 'INITIAL') ? <div>Currently Out Checking</div> :
+            props.cleaningReport.status}
+
+        </div>
       </div>
-      <div>
-        {props.cleaningReport.status}
-      </div>
-      <div>
+      <div >
         {(props.cleaningReport.status === 'FAIL') ?
-          <div>{props.cleaningReport.failed_info}</div> :
+          <div className='failed-info-display'>{props.cleaningReport.failed_info}</div> :
           null}
       </div>
     </div>

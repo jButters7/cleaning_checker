@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { setReduxApartmentId } from '../../ducks/reducer';
 import { connect } from 'react-redux';
+import './currentcheck.css'
 
 
 function CurrentCheck(props) {
@@ -26,7 +27,7 @@ function CurrentCheck(props) {
 
 
   return (
-    <div>
+    <div className='current-check-container'>
       {apartmentsArray.map(apartment => {
         let apartmentId = apartment.apartment_id;
 
@@ -35,11 +36,13 @@ function CurrentCheck(props) {
         }
 
         return (
-          <Link to={{ pathname: `/apartment` }} onClick={() => sendApartmentIdOutOfMap()}>
-            <div>
-              {apartment.apartment_num}
-            </div>
-          </Link>
+          <div className='apartment-number-link-container'>
+            <Link to={{ pathname: `/apartment` }} className='apartment-link' onClick={() => sendApartmentIdOutOfMap()}>
+              <div className='apartment-number'>
+                {apartment.apartment_num}
+              </div>
+            </Link>
+          </div>
         )
       })}
     </div>

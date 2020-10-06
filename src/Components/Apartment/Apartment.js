@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import TenantCheck from '../TenantCheck/TenantCheck';
+import './apartment.css'
 
 function Apartment(props) {
 
@@ -20,7 +21,7 @@ function Apartment(props) {
   }
 
   return (
-    <div>
+    <div className='apartment-container'>
       {apartmentCheckInfo.map(tenantInfo => {
         console.log(tenantInfo)
         return (

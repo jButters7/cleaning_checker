@@ -12,14 +12,19 @@ function Dashboard(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`/api/check/${props.userId}`).then(res => {
-      axios.get('/api/check_date').then(dateInfo => {
-        setCleaningCheckHistory(res.data);
-        setUpcomingCheckDates(dateInfo.data);
-        setIsLoading(false);
-      })
-    })
 
+    axios.get('/api/auth/me').then(res1 => {
+      axios.get(`/api/check/${props.userId}`).then(res2 => {
+        axios.get('/api/check_date').then(dateInfo => {
+          setCleaningCheckHistory(res2.data);
+          setUpcomingCheckDates(dateInfo.data);
+          setIsLoading(false);
+        })
+      })
+    }).catch(err => {
+      console.log(err)
+      props.history.push('/')
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -30,7 +35,7 @@ function Dashboard(props) {
       <h1>You Must Log In <br />To View The Dashboard</h1>
     </div> : (
       <div>
-        <div>
+        <div className='dashboard-info'>
 
           {(upcomingCheckDates[0] === undefined) ?
             <h3>No Cleaning Check Scheduled</h3> :
@@ -39,7 +44,7 @@ function Dashboard(props) {
         </div>
 
         {(cleaningCheckHistory[0] === undefined) ?
-          <div>
+          <div className='dashboard-info'>
             <h2>No Cleaning Check History to Display</h2>
             <h3>Please Check Back Later</h3>
           </div>
@@ -56,7 +61,6 @@ function Dashboard(props) {
             }
           </div>
         }
-
       </div>
     )
 }

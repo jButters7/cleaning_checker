@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Tenant from '../Tenant/Tenant';
+import './tenantlist.css';
 
 
 function TenantList() {
@@ -19,7 +20,7 @@ function TenantList() {
 
 
   return (
-    <div>
+    <div className='tenant-list-component'>
       {tenantArray.map(tenant => {
         return <Tenant key={tenant.tenant_id} tenantInfo={tenant} getTenants={getTenants} />
       })}

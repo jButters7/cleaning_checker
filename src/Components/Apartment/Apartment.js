@@ -20,16 +20,25 @@ function Apartment(props) {
     makeReRender(!reRender);
   }
 
+  console.log(apartmentCheckInfo)
+
   return (
+
     <div className='apartment-container'>
-      {apartmentCheckInfo.map(tenantInfo => {
+
+      {/* {(apartmentCheckInfo[0] === undefined) ? */}
+      {/* // <div className='tenant-list-component tenant-container input-label'>No tenants live here</div>
+      // : */}
+
+      { apartmentCheckInfo.map(tenantInfo => {
         console.log(tenantInfo)
         return (
           <div>
             <TenantCheck tenantInfo={tenantInfo} runRender={runRender} key={tenantInfo.tenant_id} />
           </div>
         )
-      })}
+      })
+      }
     </div>
   )
 }

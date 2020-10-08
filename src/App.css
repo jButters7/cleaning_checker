@@ -11,6 +11,8 @@
 background-color: var(--lightest-color);
 box-sizing: border-box;
 height: 100vh;
+padding-top: 1px;
+/* min-width: 1080px; */
 }
 
 

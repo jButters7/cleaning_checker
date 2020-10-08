@@ -1,7 +1,6 @@
 .apartment-container{
   padding-top: 100px;
-  display: flex;
-justify-content: center;
+  display: block;
 }
 
 .tenant-containers{
@@ -9,7 +8,9 @@ justify-content: center;
   width: 700px;
   padding: 10px;
   border-radius: 7px;
-
+  justify-content: center;
+  margin: 25px auto;
+  box-shadow: 0px 0px 20px -1px rgba(0,0,0,0.75);
 }
 
 .tenant-input-container{
@@ -62,4 +63,6 @@ align-items: center;
   font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
   padding: 10px;
+  border-radius: 10px;
+  outline: none;
 }

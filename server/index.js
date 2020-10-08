@@ -7,9 +7,17 @@ const authCtrl = require('./authController');
 const userCtrl = require('./userController');
 const checkCtrl = require('./checkController');
 
+
+// Everything below is for email
+const nodemailer = require('nodemailer');
+const { EMAIL_ACCOUNT, EMAIL_AUTH } = process.env;
+const hbs = require('nodemailer-express-handlebars');
+// Everything above is for email
+
+
 const app = express();
 
-const { CONNECTION_STRING, SERVER_PORT, SESSION_SECRET, EMAIL_ACCOUNT, EMAIL_AUTH } = process.env;
+const { CONNECTION_STRING, SERVER_PORT, SESSION_SECRET } = process.env;
 
 app.use(express.json());
 
@@ -24,6 +32,7 @@ app.use(session({
 //Authorize endpoints
 app.post(`/auth/register`, authCtrl.register);
 app.post('/auth/login', authCtrl.login);
+app.get('/api/auth/me', authCtrl.getUser);
 
 //User endpoints
 app.get(`/api/users`, userCtrl.getAllCurrentUsers);
@@ -45,33 +54,6 @@ app.get('/api/check/:user_id', checkCtrl.getTenantCleaningCheckHistory);
 app.post('/api/check/:check_month_id', checkCtrl.beginCleaningCheck);
 app.put('/api/check_report/:tenant_report_id', checkCtrl.submitTenantCleaningCheck);
 app.put('/api/check/:month_id', checkCtrl.archiveMonth);
-
-
-
-
-// let transporter = nodemailer.createTransport({
-//   service: 'gmail',
-//   auth: {
-//     user: EMAIL_ACCOUNT,
-//     pass: EMAIL_AUTH
-//   }
-// })
-
-// let mailOptions = {
-//   from: EMAIL_AUTH,
-//   to: 'jacobbutters@gmail.com',
-//   subject: 'Hello Jake',
-//   text: 'It Worked'
-// };
-
-// transporter.sendMail(mailOptions, function (err, data) {
-//   if (err) {
-//     console.log('Error Occurs');
-//   } else {
-//     console.log('Email Sent');
-//   }
-// });
-
 
 massive({
   connectionString: CONNECTION_STRING,

@@ -19,6 +19,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0px 50px;
+}
+
+.tenant-nav-container{
+  justify-content: flex-end;
+
 }
 
 .nav-container .link{
@@ -37,11 +43,12 @@
   cursor: pointer;
   font-size: 16px;
   font-weight:600;
-  margin: 30px 10px;
-  padding:5px 10px;
+  margin: 30px 20px;
+  padding:5px 20px;
   width: 90px;
   box-shadow: 0px 0px 16px -1px rgba(0,0,0,0.75);
   outline: black;
+  text-decoration: none;
 }
 
 .nav-logout-button:hover{

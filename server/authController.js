@@ -1,7 +1,10 @@
 require('dotenv').config();
 const bcrypt = require('bcryptjs');
+// Everything below is for email
 const nodemailer = require('nodemailer');
 const { EMAIL_ACCOUNT, EMAIL_AUTH } = process.env;
+// const hbs = require('nodemailer-express-handlebars');
+// Everything above is for email
 
 
 module.exports = {
@@ -36,13 +39,19 @@ module.exports = {
         user: EMAIL_ACCOUNT,
         pass: EMAIL_AUTH
       }
-    })
+    });
 
     let mailOptions = {
-      from: EMAIL_AUTH,
+      from: EMAIL_ACCOUNT,
       to: email,
       subject: 'Registration Successful',
-      text: `${first_name} ${last_name}, your registration to the Cleaning Check online application was successful. Please take a look around and familiarize yourself with the site.`
+      html: `
+      <div style='font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif; color: black; font-size: 18px;'>
+      <h1 style="color: #145374; text-align: center"> Hello ${first_name} ${last_name}</h1> 
+      <div> <p>You have successfully registered for the online Cleaning Checker application.</p></div> 
+      <div></p>Please take a look around and familiarize yourself with the site.</p> </div> 
+      <div><p>Also, reach out to us <a style='color: #ee6f57' href="mailto: cleaningchecksarecoll@gmail.com">HERE</a> if you have any questions about your upcoming cleaning checks.</p></div>
+      </div>`
     };
 
     transporter.sendMail(mailOptions, function (err, data) {
@@ -53,9 +62,7 @@ module.exports = {
       }
     });
 
-
-    //! I will most likely not want to send anything seeing that they just created an account. The user will need to login still
-    res.status(201).send(newUser)
+    res.sendStatus(201);
   },
 
 
@@ -80,6 +87,16 @@ module.exports = {
     req.session.user = existingUser;
 
     res.status(200).send(req.session.user);
+  },
+
+  getUser: async (req, res) => {
+    const db = req.app.get('db');
+    if (req.session.user) {
+      const [currentUser] = await db.check_email(req.session.user.email);
+      res.status(200).send(currentUser);
+    } else {
+      res.sendStatus(404)
+    }
   }
 
 

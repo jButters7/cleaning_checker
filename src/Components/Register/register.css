@@ -10,10 +10,10 @@
 .main-register-container{
   align-items: center;
   background-color: var(--less-dark-color);
-  padding: 40px;
+  padding: 40px 0;
   display: flex;
   flex-direction: column;
-  margin: 70px 200px;
+  margin: 100px 200px;
   justify-content: center;
   border-radius: 10px;
 }

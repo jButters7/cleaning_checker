@@ -13,11 +13,11 @@ function Login(props) {
 
   const login = () => {
     axios.post(`/auth/login`, { email, password }).then(res => {
-      props.loginUser(res.data.user_id, res.data.first_name, res.data.last_name);
+      props.loginUser(res.data.user_id, res.data.first_name, res.data.last_name, res.data.user_role);
       if (res.data.user_role === 'ADMIN') {
         props.history.push('/admindashboard');
       } else {
-        props.history.push('dashboard');
+        props.history.push('/dashboard');
       }
     })
       .catch(err => alert(err.message))

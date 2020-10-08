@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './tenant.css';
 
 function Tenant(props) {
   const { tenant_id, user_id, first_name, last_name, email, phone_num, is_email_subscribed, is_text_subscribed, user_role, apartment_num } = props.tenantInfo
@@ -14,7 +13,6 @@ function Tenant(props) {
   const [isTextSub, setIsTextSub] = useState(is_text_subscribed);
   const [userRole, setUserRole] = useState(user_role);
   const [apartmentNum, setApartmentNum] = useState(apartment_num);
-
 
   const sendNewUserInformation = () => {
     console.log('sendUser')
@@ -33,9 +31,7 @@ function Tenant(props) {
     })
   }
 
-
   return (
-
     <div>
       {isEditing ?
         <div className='tenant-container'>
@@ -43,20 +39,20 @@ function Tenant(props) {
           <div>
             Name
         <div className='name'>
-              <input type='text' value={firstName} placeholder='First Name' onChange={e => setFirstName(e.target.value)} />
-              <input type='text' value={lastName} placeholder='Last Name' onChange={e => setLastName(e.target.value)} />
+              <input className='update-inputs name-input' type='text' value={firstName} placeholder='First Name' onChange={e => setFirstName(e.target.value)} />
+              <input className='update-inputs name-input' type='text' value={lastName} placeholder='Last Name' onChange={e => setLastName(e.target.value)} />
             </div>
           </div>
           <div>
             Email
         <div>
-              <input type='text' value={givenEmail} onChange={e => setGivenEmail(e.target.value)} />
+              <input className='update-inputs email-input' type='text' value={givenEmail} onChange={e => setGivenEmail(e.target.value)} />
             </div>
           </div>
           <div>
             Phone #
         <div>
-              <input type='text' value={phoneNum} onChange={e => setPhoneNum(e.target.value)} />
+              <input className='update-inputs phone-input' type='text' value={phoneNum} onChange={e => setPhoneNum(e.target.value)} />
             </div>
           </div>
 
@@ -65,25 +61,25 @@ function Tenant(props) {
         <div>
               {(isEmailSub === "TRUE") ?
                 <div>
-                  <label>Email: </label>
-                 Yes<input type='radio' value="true" name='email' onClick={() => setIsEmailSub('TRUE')} checked />
+                  <label className='input-label' >Email: </label>
+                 Yes<input className='update-inputs' type='radio' value="true" name='email' onClick={() => setIsEmailSub('TRUE')} checked />
                  No<input type='radio' value="false" name='email' onClick={() => setIsEmailSub('FALSE')} />
                 </div> :
                 <div>
-                  <label>Email: </label>
-                  Yes<input type='radio' value="true" name='email' onClick={() => setIsEmailSub('TRUE')} />
+                  <label className='input-label'>Email: </label>
+                  Yes<input className='update-inputs' type='radio' value="true" name='email' onClick={() => setIsEmailSub('TRUE')} />
                   No <input type='radio' value="false" name='email' onClick={() => setIsEmailSub('FALSE')} checked />
                 </div>
               }
               {(isTextSub === "TRUE") ?
                 <div>
-                  <label>Text: </label>
-                  Yes<input type='radio' value="true" name='text' onClick={() => setIsTextSub('TRUE')} checked />
+                  <label className='input-label' >Text: </label>
+                  Yes<input className='update-inputs' type='radio' value="true" name='text' onClick={() => setIsTextSub('TRUE')} checked />
                  No<input type='radio' value="false" name='text' onClick={() => setIsTextSub('FALSE')} />
                 </div> :
                 <div>
-                  <label>Text: </label>
-                  Yes<input type='radio' value="true" name='text' onClick={() => setIsTextSub('TRUE')} />
+                  <label className='input-label' >Text: </label>
+                  Yes<input className='update-inputs' type='radio' value="true" name='text' onClick={() => setIsTextSub('TRUE')} />
                   No<input type='radio' value="false" name='text' onClick={() => setIsTextSub('FALSE')} checked />
                 </div>
               }
@@ -96,16 +92,16 @@ function Tenant(props) {
               {(userRole === "TENANT") ?
                 <div>
                   Tenant
-                  <input type='radio' name={tenant_id} value='TENANT' onClick={() => setUserRole('TENANT')} checked />
+                  <input className='update-inputs' type='radio' name={tenant_id} value='TENANT' onClick={() => setUserRole('TENANT')} checked />
                   Admin
-                  <input type='radio' name={tenant_id} value='ADMIN' onClick={() => setUserRole('ADMIN')} />
+                  <input className='update-inputs' type='radio' name={tenant_id} value='ADMIN' onClick={() => setUserRole('ADMIN')} />
                 </div>
                 :
                 <div>
                   Tenant
-                  <input type='radio' name={tenant_id} value='TENANT' onClick={() => setUserRole('TENANT')} />
+                  <input className='update-inputs' type='radio' name={tenant_id} value='TENANT' onClick={() => setUserRole('TENANT')} />
                   Admin
-                  <input type='radio' name={tenant_id} value='ADMIN' onClick={() => setUserRole('ADMIN')} checked />
+                  <input className='update-inputs' type='radio' name={tenant_id} value='ADMIN' onClick={() => setUserRole('ADMIN')} checked />
                 </div>
               }
             </div>
@@ -115,14 +111,18 @@ function Tenant(props) {
             Apartment #
         <div>
 
-              <input type='text' value={apartmentNum} onChange={e => setApartmentNum(e.target.value)} />
+              <input className='apartment-input update-inputs' type='number' value={apartmentNum} onChange={e => setApartmentNum(e.target.value)} />
             </div>
           </div>
 
-          <div>
-            <button onClick={() => sendNewUserInformation()}>Save</button>
-            <button onClick={() => setIsEditing(!isEditing)}>Cancel</button>
-            <button>Delete Tenant</button>
+          <div className='edit-buttons-container'>
+            <div>
+              <button className='update-user-btns' onClick={() => sendNewUserInformation()}>Save</button>
+              <button className='update-user-btns' onClick={() => setIsEditing(!isEditing)}>Cancel</button>
+            </div>
+            <div>
+              <button className='update-user-btns' onClick={() => deleteUser()}>Delete Tenant</button>
+            </div>
           </div>
         </div>
 
@@ -131,49 +131,48 @@ function Tenant(props) {
         // -------------------------------- RENDERED DISPLAYED ------------------------
         <div className='tenant-container'>
           <div>
-            Name
-      <div className='name'>
+            <h4 className='column-title'>Name</h4>
+            <div className='name'>
               {first_name} {last_name}
             </div>
           </div>
           <div>
-            Email
-      <div>
+            <h4 className='column-title'>Email</h4>
+            <div>
               {email}
             </div>
           </div>
           <div>
-            Phone #
-      <div>
+            <h4 className='column-title'>Phone #</h4>
+            <div>
               {phone_num}
             </div>
           </div>
 
           <div>
-            Notifications
-      <div>
+            <h4 className='column-title'>Notifications</h4>
+            <div>
               {is_email_subscribed ? <div>Email &#9745;</div> : <div>Email &#9744;</div>}
               {is_text_subscribed ? <div>Text &#9745;</div> : <div>Text &#9744;</div>}
             </div>
           </div>
 
           <div>
-            User Type
-      <div>
+            <h4 className='column-title'>User Type</h4>
+            <div>
               {user_role}
             </div>
           </div>
 
           <div>
-            Apartment #
-      <div>
+            <h4 className='column-title'>Apartment #</h4>
+            <div>
               {apartment_num}
             </div>
           </div>
 
           <div>
-            <button onClick={() => setIsEditing(!isEditing)}>Edit Info</button>
-            <button onClick={() => deleteUser()}>Delete Tenant</button>
+            <button className='update-user-btns' onClick={() => setIsEditing(!isEditing)}>Edit Info</button>
           </div>
         </div>}
     </div>

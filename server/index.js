@@ -6,13 +6,15 @@ const massive = require('massive');
 const authCtrl = require('./authController');
 const userCtrl = require('./userController');
 const checkCtrl = require('./checkController');
+const path = require('path');
 
 
-// Everything below is for email
-const nodemailer = require('nodemailer');
-const { EMAIL_ACCOUNT, EMAIL_AUTH } = process.env;
-const hbs = require('nodemailer-express-handlebars');
-// Everything above is for email
+
+// // Everything below is for email
+// const nodemailer = require('nodemailer');
+// const { EMAIL_ACCOUNT, EMAIL_AUTH } = process.env;
+// const hbs = require('nodemailer-express-handlebars');
+// // Everything above is for email
 
 
 const app = express();
@@ -55,6 +57,14 @@ app.get('/api/check/:user_id', checkCtrl.getTenantCleaningCheckHistory);
 app.post('/api/check/:check_month_id', checkCtrl.beginCleaningCheck);
 app.put('/api/check_report/:tenant_report_id', checkCtrl.submitTenantCleaningCheck);
 app.put('/api/check/:month_id', checkCtrl.archiveMonth);
+
+
+//SERVER LINES BELOW
+app.use(express.static(__dirname + '/../build'));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+})
+//SERVER LINES ABOVE
 
 massive({
   connectionString: CONNECTION_STRING,

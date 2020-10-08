@@ -14,7 +14,6 @@ const LOGOUT_USER = 'LOGOUT_USER';
 
 
 export function loginUser(userId, userFirstName, userLastName, userType) {
-  console.log(userType)
   return {
     type: LOGIN_USER,
     payload: {

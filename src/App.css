@@ -10,8 +10,9 @@
 .App {
 background-color: var(--lightest-color);
 box-sizing: border-box;
-height: 100vh;
+height: 100%;
 padding-top: 1px;
+padding-bottom: 40px;
 /* min-width: 1080px; */
 }
 

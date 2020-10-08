@@ -21,6 +21,7 @@ function AdminDashboard(props) {
   }
 
   const getAllMonths = () => {
+
     axios.get('/api/check_months').then(res => {
       setUpcomingCheckDates(res.data)
     })

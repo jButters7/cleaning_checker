@@ -1,19 +1,10 @@
-
-:root{
-  --most-dark-color: #00334e;
-  --less-dark-color: #145374;
-  --lightest-color: #f6f5f5;
-  --highlight-color: #ee6f57;
-}
-
-
 .main-register-container{
   align-items: center;
   background-color: var(--less-dark-color);
   padding: 40px 0;
   display: flex;
   flex-direction: column;
-  margin: 100px 200px;
+  margin: 100px auto;
   justify-content: center;
   border-radius: 10px;
 }

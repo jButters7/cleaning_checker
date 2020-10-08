@@ -26,7 +26,7 @@ function Login(props) {
   return (
     <div className='login-container'>
       <div className="input-container">
-        <img className='app-logo' src={spray} />
+        <img className='app-logo' src={spray} alt='spray bottle logo' />
         <input placeholder='Email' type='text' onChange={e => setEmail(e.target.value)} />
         <input placeholder='Password' type='password' onChange={e => setPassword(e.target.value)} />
 
@@ -38,7 +38,7 @@ function Login(props) {
       <div className='register-container'>
         <div className='no-account'>
           <div className='register-line'></div>
-          <div>Don't have an Account?</div>
+          <div className='no-account-text'>Don't have an Account?</div>
           <div className='register-line'></div>
         </div>
 

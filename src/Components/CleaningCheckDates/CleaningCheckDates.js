@@ -21,8 +21,6 @@ function CleaningCheckDates(props) {
     setExistingDate(props.data.check_dates[0]);
   }, [])
 
-  console.log(existingDate);
-
   const beginCleaningCheck = (props) => {
     axios.post(`/api/check/${specificMonthId}`).then(res => {
       console.log(props.data.check_month_id);

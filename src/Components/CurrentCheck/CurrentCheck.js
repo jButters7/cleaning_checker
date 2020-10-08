@@ -10,6 +10,13 @@ function CurrentCheck(props) {
   const [apartmentsArray, setApartmentsArray] = useState([]);
 
   useEffect(() => {
+    // axios.get('/auth/me').then(res => {
+    //   console.log(res.data.noUser)
+    //   if (res.data.currentUser.status === "TENANT") {
+    //     console.log('made it')
+    //     props.history.push('/dashboard')
+    //   }
+    // }).catch(() => props.history.push('/dashboard'));
     getAllApartments();
   }, []);
 

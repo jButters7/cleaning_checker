@@ -8,16 +8,20 @@ import Dashboard from './Components/Dashboard/Dashboard';
 import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
 import TenantList from './Components/TenantList/TenantList';
+import Nav from './Components/Nav/Nav';
 
 export default (
-  <Switch>
-    <Route exact path='/admindashboard' component={AdminDashboard} />
-    <Route exact path='/apartment' component={Apartment} />
-    <Route exact path='/archive' component={Archive} />
-    <Route exact path='/currentcheck' component={CurrentCheck} />
-    <Route exact path='/dashboard' component={Dashboard} />
-    <Route exact path='/' component={Login} />
-    <Route exact path='/register' component={Register} />
-    <Route exact path='/tenantlist' component={TenantList} />
-  </Switch>
+  <div>
+    <Route path='/' component={Nav} />
+    <Switch>
+      <Route exact path='/' component={Login} />
+      <Route path='/admindashboard' component={AdminDashboard} />
+      <Route path='/apartment' component={Apartment} />
+      <Route path='/archive' component={Archive} />
+      <Route path='/currentcheck' component={CurrentCheck} />
+      <Route path='/dashboard' component={Dashboard} />
+      <Route path='/register' component={Register} />
+      <Route path='/tenantlist' component={TenantList} />
+    </Switch>
+  </div>
 )

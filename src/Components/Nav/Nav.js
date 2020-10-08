@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './nav.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -8,11 +8,11 @@ import axios from 'axios';
 function Nav(props) {
 
   const logout = () => {
-    props.logoutUser();
+    axios.delete('/auth/logout').then(() => {
+      props.logoutUser();
+    }).catch(err => alert('Something went wrong.', err))
   }
 
-
-  console.log(props)
   return (
     <div>
       {(props.userId === null) ? null :

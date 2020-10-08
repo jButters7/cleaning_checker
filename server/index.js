@@ -32,7 +32,8 @@ app.use(session({
 //Authorize endpoints
 app.post(`/auth/register`, authCtrl.register);
 app.post('/auth/login', authCtrl.login);
-app.get('/api/auth/me', authCtrl.getUser);
+app.get('/auth/me', authCtrl.getUser);
+app.delete('/auth/logout', authCtrl.logout);
 
 //User endpoints
 app.get(`/api/users`, userCtrl.getAllCurrentUsers);

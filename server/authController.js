@@ -89,15 +89,21 @@ module.exports = {
     res.status(200).send(req.session.user);
   },
 
+  logout: async (req, res) => {
+    req.session.destroy();
+    res.sendStatus(200);
+  },
+
   getUser: async (req, res) => {
     const db = req.app.get('db');
+    let noUser = { noUser: 1 };
+    console.log('here we go')
     if (req.session.user) {
       const [currentUser] = await db.check_email(req.session.user.email);
       res.status(200).send(currentUser);
     } else {
-      res.sendStatus(404)
+      console.log(noUser)
+      res.status(404).send(noUser);
     }
   }
-
-
 };

@@ -10,6 +10,7 @@ function Apartment(props) {
   const [reRender, makeReRender] = useState(false);
 
   useEffect(() => {
+
     axios.get(`/api/tenant_reports/${props.monthId}/${props.apartmentId}`).then(res => {
       setApartmentCheckInfo(res.data);
     }, [])

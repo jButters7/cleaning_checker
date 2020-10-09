@@ -16,8 +16,8 @@
   font-size: 16px;
   font-weight:600;
   margin: 10px 10px;
-  padding: 5px ;
-  width: 150px;
+  padding: 5px 20px;
+  /* width: 150px; */
   box-shadow: none;
   outline: black;
 }
@@ -30,10 +30,6 @@
 .date-and-edit-btns{
   display: flex;
   align-items: center;
-}
-
-.edit-btn{
-  width: 100px;
 }
 
 .ccd-inner-container{
@@ -51,9 +47,6 @@ right: -10px;
   top: -10px;
   right: -10px;
 }
-.archive-btn{
-  width: 80px;
-}
 
 /* BELOW IS THE ARCHIVE PAGE */
 
@@ -65,5 +58,5 @@ right: -10px;
 
 .edit-past-btn{
 margin-top: 0px;
-width: 80px;
+/* width: 80px; */
 }

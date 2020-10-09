@@ -12,19 +12,14 @@ function Dashboard(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('/auth/me').then(res => {
-      axios.get(`/api/check/${props.userId}`).then(res2 => {
-        axios.get('/api/check_date').then(dateInfo => {
-          if (res.data.noUser === 1) {
-            console.log('made it')
-            props.history.push('/')
-          }
-          setCleaningCheckHistory(res2.data);
-          setUpcomingCheckDates(dateInfo.data);
-          setIsLoading(false);
-        })
+    axios.get(`/api/check/${props.userId}`).then(res2 => {
+      axios.get('/api/check_date').then(dateInfo => {
+        setCleaningCheckHistory(res2.data);
+        setUpcomingCheckDates(dateInfo.data);
+        setIsLoading(false);
       })
-    }).catch(() => props.history.push('/'));
+    })
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

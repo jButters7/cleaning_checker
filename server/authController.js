@@ -86,6 +86,8 @@ module.exports = {
 
     req.session.user = existingUser;
 
+    console.log('kate', req.session.user)
+
     res.status(200).send(req.session.user);
   },
 

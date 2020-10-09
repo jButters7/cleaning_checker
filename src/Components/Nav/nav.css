@@ -1,14 +1,7 @@
-:root{
-  --most-dark-color: #00334e;
-  --less-dark-color: #145374;
-  --lightest-color: #f6f5f5;
-  --highlight-color: #ee6f57;
-}
-
 
 .nav-container{
   position: fixed;
-  width: 100%;
+  width: 100vw;
   top:0px;
   z-index: 9999;
   box-sizing: border-box;
@@ -22,9 +15,10 @@
   padding: 0px 50px;
 }
 
+
 .tenant-nav-container{
   justify-content: flex-end;
-
+  
 }
 
 .nav-container .link{
@@ -54,4 +48,3 @@
 .nav-logout-button:hover{
   box-shadow: none;
 }
-

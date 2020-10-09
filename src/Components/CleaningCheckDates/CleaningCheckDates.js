@@ -98,7 +98,7 @@ function CleaningCheckDates(props) {
 
               {(monthStatus === 'INITIAL') ?
                 !editDateInputsDisplay ?
-                  <button className='check-dates-btn edit-btn' onClick={() => setEditDateInputsDisplay(!editDateInputsDisplay)}>Edit Date</button> :
+                  <button className='check-dates-btn' onClick={() => setEditDateInputsDisplay(!editDateInputsDisplay)}>Edit Date</button> :
                   <div>
                     <button className='check-dates-btn' onClick={() => editCheckDate(dates.check_date_id, props)}>Save Edit</button>
                     <button className='check-dates-btn' onClick={() => setEditDateInputsDisplay(!editDateInputsDisplay)}>Cancel</button>
@@ -112,6 +112,8 @@ function CleaningCheckDates(props) {
 
         {isCheckDateInputDisplayed ?
           <div>
+
+            {/* value={moment(props.data.check_month).format('YYYY-MM-DD')} */}
             <input type="date" className='date-input-box' onChange={e => setAddCheckDate(e.target.value)} />
           </div> :
           null
@@ -119,7 +121,7 @@ function CleaningCheckDates(props) {
 
         {(existingDate === undefined) ?
           !isCheckDateInputDisplayed ?
-            <button className='check-dates-btn' onClick={() => alterAddDateDisplay()}>Add Date</button> :
+            <button className='check-dates-btn' onClick={() => { alterAddDateDisplay(); setAddCheckDate(moment(props.data.check_month).format('YYYY-MM-DD')) }}>Add Date</button> :
             <div>
               <button className='check-dates-btn' onClick={() => {
                 return saveCheckDate(props.data.check_month_id, props);
@@ -135,12 +137,12 @@ function CleaningCheckDates(props) {
 
           (monthStatus === 'INITIAL') ?
             <div>
-              <button className='check-dates-btn begin-continue-btn' onClick={() => beginCleaningCheck(props)}>Begin Cleaning Check</button>
+              <button className='check-dates-btn begin-continue-btn' onClick={() => beginCleaningCheck(props)}>Begin Check</button>
             </div> :
             (monthStatus === 'INPROGRESS') ?
               <div className='continue-archive-container'>
-                <button className='check-dates-btn archive-btn' onClick={() => archiveMonth(props.data.check_month_id, props)}>Archive</button>
-                <button className='check-dates-btn continue-btn' onClick={() => continueCleaningCheck()}>Continue Cleaning Check</button>
+                <button className='check-dates-btn' onClick={() => archiveMonth(props.data.check_month_id, props)}>Archive</button>
+                <button className='check-dates-btn continue-btn' onClick={() => continueCleaningCheck()}>Continue Check</button>
               </div> : null
           :
           null

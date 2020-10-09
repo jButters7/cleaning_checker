@@ -8,13 +8,24 @@
 
 
 .App {
-background-color: var(--lightest-color);
-box-sizing: border-box;
-height: 100%;
-padding-top: 1px;
-padding-bottom: 40px;
-/* min-width: 1080px; */
+  background-color: var(--lightest-color);
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding-top: 1px;
+  padding-bottom: 40px;
 }
+
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .App {
+      background-color: var(--lightest-color);
+      box-sizing: border-box;
+      height: 100vh;
+      padding-bottom: 0;
+    }
+  }
 
 
 /* 

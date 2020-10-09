@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './nav.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logoutUser } from '../../ducks/reducer';
+import { logoutUser, loginUser } from '../../ducks/reducer';
 import axios from 'axios';
 
 function Nav(props) {
+
+  useEffect(() => {
+    axios.get('/auth/me').then(res => {
+      console.log(props);
+      props.loginUser(res.data.user_id, res.data.first_name, res.data.last_name, res.data.user_role)
+    })
+  })
 
   const logout = () => {
     axios.delete('/auth/logout').then(() => {
@@ -20,7 +27,7 @@ function Nav(props) {
         (props.userType === "ADMIN") ?
 
           <nav className='nav-container'>
-            <nav>
+            <nav className='all-nav-links'>
               <Link className='link' to={{ pathname: '/admindashboard' }}>Dashboard</Link>
               <Link className='link' to={{ pathname: '/tenantlist' }}>Current Tenants</Link>
               <Link className='link' to={{ pathname: '/archive' }}>Archive</Link>
@@ -49,4 +56,4 @@ function Nav(props) {
 
 const mapStateToProps = reduxState => reduxState;
 
-export default connect(mapStateToProps, { logoutUser })(Nav);
+export default connect(mapStateToProps, { logoutUser, loginUser })(Nav);

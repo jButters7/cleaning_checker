@@ -10,12 +10,22 @@
   max-width: 600px;
 }
 
-/* @media only screen 
+@media only screen 
   and (min-device-width: 320px) 
   and (max-device-width: 480px)
   and (-webkit-min-device-pixel-ratio: 2) {
-
-} */
+    .login-container{
+      background-color: var(--less-dark-color);
+      padding: 20px 0;
+      display: flex;
+      margin: 0;
+      margin-top: -5px;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+      border-radius: 0;
+    }
+}
 
 .app-logo{
   height: 100px;

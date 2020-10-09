@@ -38,7 +38,7 @@ function Login(props) {
       <div className='register-container'>
         <div className='no-account'>
           <div className='register-line'></div>
-          <div className='no-account-text'>Don't have an Account?</div>
+          <div className='no-account-text'>Don't have an account?</div>
           <div className='register-line'></div>
         </div>
 

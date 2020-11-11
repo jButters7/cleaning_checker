@@ -121,7 +121,7 @@ function Tenant(props) {
               <button className='update-user-btns' onClick={() => setIsEditing(!isEditing)}>Cancel</button>
             </div>
             <div>
-              <button className='update-user-btns' onClick={() => deleteUser()}>Delete Tenant</button>
+              <button className='update-user-btns' onClick={() => deleteUser()}>Delete</button>
             </div>
           </div>
         </div>

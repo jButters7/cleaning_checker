@@ -9,6 +9,7 @@ import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
 import TenantList from './Components/TenantList/TenantList';
 import Nav from './Components/Nav/Nav';
+// import AdminCalendar from './Components/AdminCalendar/AdminCalendar';
 
 export default (
   <div>
@@ -22,6 +23,7 @@ export default (
       <Route path='/dashboard' component={Dashboard} />
       <Route path='/register' component={Register} />
       <Route path='/tenantlist' component={TenantList} />
+      {/* <Route path='/admincalendar' component={AdminCalendar} /> */}
     </Switch>
   </div>
 )

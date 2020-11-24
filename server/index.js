@@ -8,15 +8,6 @@ const userCtrl = require('./userController');
 const checkCtrl = require('./checkController');
 const path = require('path');
 
-
-
-// // Everything below is for email
-// const nodemailer = require('nodemailer');
-// const { EMAIL_ACCOUNT, EMAIL_AUTH } = process.env;
-// const hbs = require('nodemailer-express-handlebars');
-// // Everything above is for email
-
-
 const app = express();
 
 const { CONNECTION_STRING, SERVER_PORT, SESSION_SECRET } = process.env;

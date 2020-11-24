@@ -6,7 +6,6 @@ const { EMAIL_ACCOUNT, EMAIL_AUTH } = process.env;
 // const hbs = require('nodemailer-express-handlebars');
 // Everything above is for email
 
-
 module.exports = {
   register: async (req, res) => {
     // console.log(req.body)
@@ -64,7 +63,6 @@ module.exports = {
 
     res.sendStatus(201);
   },
-
 
   login: async (req, res) => {
     const db = req.app.get('db');

@@ -18,7 +18,6 @@ function TenantList() {
     })
   };
 
-
   return (
     <div className='tenant-list-component'>
       {tenantArray.map(tenant => {
